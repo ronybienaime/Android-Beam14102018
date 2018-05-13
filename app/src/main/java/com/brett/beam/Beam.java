@@ -33,6 +33,8 @@ import android.text.format.Time;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -64,6 +66,16 @@ public class Beam extends Activity implements CreateNdefMessageCallback,
 
         mInfoText = (TextView) findViewById(R.id.textView);
         listView = (ListView) findViewById(R.id.listview);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(Beam.this, DetailActivity.class);
+
+                intent.putExtra("ID", ((Form)adapterView.getItemAtPosition(i)).getId());
+
+                startActivity(intent);
+            }
+        });
 
         contacts = SQLite.select()
                 .from(Form.class)
