@@ -4,7 +4,7 @@
 
     <item
         android:title="profile"
-        android:icon="@drawable/ic_action_add"
+        android:icon="@drawable/ic_action_edit"
         android:id="@+id/menu_add"
         app:showAsAction="always"
         />

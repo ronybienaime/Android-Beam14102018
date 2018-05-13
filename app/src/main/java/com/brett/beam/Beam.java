@@ -29,6 +29,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Parcelable;
 import android.provider.Settings;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.format.Time;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -48,7 +50,7 @@ import java.nio.charset.Charset;
 import java.util.List;
 
 
-public class Beam extends Activity implements CreateNdefMessageCallback,
+public class Beam extends AppCompatActivity implements CreateNdefMessageCallback,
         OnNdefPushCompleteCallback {
     NfcAdapter mNfcAdapter;
     TextView mInfoText;
@@ -62,7 +64,9 @@ public class Beam extends Activity implements CreateNdefMessageCallback,
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
         mInfoText = (TextView) findViewById(R.id.textView);
         listView = (ListView) findViewById(R.id.listview);
