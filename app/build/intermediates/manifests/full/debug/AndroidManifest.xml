@@ -38,11 +38,11 @@
         android:name="com.brett.beam.application.MyApplication"
         android:debuggable="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name" >
+        android:label="@string/app_name"
+        android:testOnly="true" >
         <activity
             android:name="com.brett.beam.Beam"
-            android:label="@string/app_name"
-            android:launchMode="singleTop" >
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -60,7 +60,10 @@
             android:name="com.brett.beam.ProfileActivity"
             android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.brett.beam.DetailActivity" />
+        <activity
+            android:name="com.brett.beam.DetailActivity"
+            android:label="@string/title_activity_detail"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
             android:name="android.support.VERSION"

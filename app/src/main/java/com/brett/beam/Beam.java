@@ -79,7 +79,7 @@ public class Beam extends Activity implements CreateNdefMessageCallback,
 
         contacts = SQLite.select()
                 .from(Form.class)
-                .where(Form_Table.type.is(2))
+                //.where(Form_Table.type.is(2))
                 .queryList();
 
         adapter = new ArrayAdapter<Form>(this, android.R.layout.simple_list_item_1, contacts);
