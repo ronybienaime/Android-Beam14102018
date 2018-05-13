@@ -1,0 +1,40 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
+
+    defaultConfig {
+        applicationId "com.brett.beam"
+        minSdkVersion 15
+        targetSdkVersion 26
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+    sourceSets { main { res.srcDirs = ['src/main/res', 'src/main/res/layouts'] } }
+
+    def dbflow_version = "4.0.3"
+
+    dependencies {
+        // annotationProcessor now supported in Android Gradle plugin 2.2
+        // See https://bitbucket.org/hvisser/android-apt/wiki/Migration
+        annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
+        compile "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}"
+        compile "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}"
+
+        // sql-cipher database encryption (optional)
+        // compile "com.github.Raizlabs.DBFlow:dbflow-sqlcipher:${dbflow_version}"
+
+        compile 'com.google.code.gson:gson:2.8.4'
+    }
+}
+dependencies {
+    implementation 'com.android.support:appcompat-v7:26.+'
+    implementation 'com.android.support.constraint:constraint-layout:+'
+    implementation 'com.android.support:design:26.+'
+}
