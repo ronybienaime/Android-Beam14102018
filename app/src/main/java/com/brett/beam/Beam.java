@@ -44,6 +44,7 @@ import android.widget.Toast;
 
 import com.brett.beam.models.Form;
 import com.brett.beam.models.Form_Table;
+import com.google.gson.Gson;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import java.nio.charset.Charset;
@@ -60,6 +61,7 @@ public class Beam extends AppCompatActivity implements CreateNdefMessageCallback
     List<Form> contacts;
     ArrayAdapter<Form> adapter;
     ListView listView;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -110,18 +112,33 @@ public class Beam extends AppCompatActivity implements CreateNdefMessageCallback
      */
     @Override
     public NdefMessage createNdefMessage(NfcEvent event) {
-        Time time = new Time();
-        time.setToNow();
+        Gson objectjson = new Gson();
+
+        String scontact;
+        List<Form> forms = SQLite.select()
+                .from(Form.class)
+                .where(Form_Table.type.is(1))
+                .queryList();
+
+        if (forms.size() > 0)
+            scontact=objectjson.toJson(forms.get(0));
+        else {
+            scontact = "";
+        }
 
 
-        String text = ("Beam me up!\n\n" +
-                "Beam Time: " + time.format("%H:%M:%S"));
+        //Time time = new Time();
+        //time.setToNow();
+
+
+        //String text = ("Beam me up!\n\n" +
+          //      "Beam Time: " + time.format("%H:%M:%S"));
 
 
 
         NdefMessage msg = new NdefMessage(
                 new NdefRecord[] { createMimeRecord(
-                        "application/com.example.android.beam", text.getBytes())
+                        "application/com.example.android.beam", scontact.getBytes())
          /**
           * The Android Application Record (AAR) is commented out. When a device
           * receives a push with an AAR in it, the application specified in the AAR
@@ -180,8 +197,15 @@ public class Beam extends AppCompatActivity implements CreateNdefMessageCallback
                 NfcAdapter.EXTRA_NDEF_MESSAGES);
         // only one message sent during the beam
         NdefMessage msg = (NdefMessage) rawMsgs[0];
-        // record 0 contains the MIME type, record 1 is the AAR, if present
-        mInfoText.setText(new String(msg.getRecords()[0].getPayload()));
+        Gson objectjson = new Gson();
+        String scontact =new String(msg.getRecords()[0].getPayload());
+        if(!scontact.isEmpty()) {
+            Form contact = objectjson.fromJson(scontact, Form.class);
+            // record 0 contains the MIME type, record 1 is the AAR, if present
+
+            contact.setType(0);
+            contact.save();
+        }
     }
 
     void updateProfile(){
