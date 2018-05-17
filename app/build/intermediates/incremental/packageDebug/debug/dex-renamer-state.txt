@@ -1,4 +1,4 @@
-#Mon May 14 15:08:30 GMT-04:00 2018
+#Thu May 17 12:25:38 GMT-04:00 2018
 base.0=C\:\\Android-Beam\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
 path.0=classes.dex
 renamed.0=classes.dex

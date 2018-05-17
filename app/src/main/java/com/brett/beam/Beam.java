@@ -85,7 +85,7 @@ public class Beam extends AppCompatActivity implements CreateNdefMessageCallback
 
         contacts = SQLite.select()
                 .from(Form.class)
-                //.where(Form_Table.type.is(2))
+                //.where(Form_Table.type.is(0))
                 .queryList();
 
         adapter = new ArrayAdapter<Form>(this, android.R.layout.simple_list_item_1, contacts);
@@ -205,6 +205,9 @@ public class Beam extends AppCompatActivity implements CreateNdefMessageCallback
 
             contact.setType(0);
             contact.save();
+
+            contacts.add(contact);
+            adapter.notifyDataSetChanged();
         }
     }
 
